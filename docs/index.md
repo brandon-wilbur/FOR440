@@ -2,3 +2,4 @@
 
 ## Projects
 * [Webshell Project](webshell_project/webshells.md)
+* [WMI Project](wmi_attacks/wmi-attacks.md)
