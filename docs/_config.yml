@@ -1,5 +1,1 @@
 theme: jekyll-theme-cayman
-
-.highlight pre{
-  white-space: pre-wrap;
-}
