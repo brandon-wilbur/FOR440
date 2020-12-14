@@ -110,6 +110,25 @@ Again, this command will prompt the user for the remote user's credentials upon 
 Additionally, any of these commands can be run on a local machine by leaving out the `ComputerName` and `Credential` flags. These attacks will require previous knowledge of the victim user's password.
 
 ## Hunting WMI Attacks
+There isn’t a lot of documented ways to hunt WMI attacks. Due to its innate ability generate a small forensics footprint, there are only select ways to hunt it. The method we found the easiest without using any major tools is event viewer
+
+### Method 1:
+The first one is using Event Viewer. Event viewer out of the box is very broad. There are so many operations and logs that you can search. It is recommended that you install the Sysmon config for your event viewer. The Sysmon config streamlines all of the important events it finds and puts it all into one spot. After installing Sysmon, in Event Viewer go to “Applications and Services Log -> Windows -> Sysmon -> Operational” to find the streamlined logs. 
+
+Let’s start out first test. Here we do a wmic call on a remote computer to execute the executable “FOR440Threathunting.exe”
+![](images/attack1.png)
+
+Now going to the victim machine, we will look at the Sysmon logs. The key thing to look here is for is the “Event ID: 1“. This event ID is associated with process creation. Here we look for WMI process creation. 
+![](images/result1.png)
+
+We next excuted the WMI Attack - Malicious Provider Method on the vicitm machine and attemtped to hunt it. The first thing we did was check the sysmon logs and we can see that there were multiple evenst relating to our attack. The first one we found was realting to the process create of powershell.exe. 
+![](images/result1.png)
+The second is a network connection to nmap.org to download n.exe. 
+![](images/result2.png)
+The last processs of interests was the creation of the process "n.exe" aka ncat.exe
+![](images/result3.png)
+
+Here we can see the base 64 encrypted payload being executed on the victim machine. 
 
 ## References:
 * [https://www.blackhat.com/docs/us-15/materials/us-15-Graeber-Abusing-Windows-Management-Instrumentation-WMI-To-Build-A-Persistent%20Asynchronous-And-Fileless-Backdoor-wp.pdf](https://www.blackhat.com/docs/us-15/materials/us-15-Graeber-Abusing-Windows-Management-Instrumentation-WMI-To-Build-A-Persistent%20Asynchronous-And-Fileless-Backdoor-wp.pdf)
