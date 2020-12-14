@@ -125,7 +125,7 @@ Now going to the victim machine, we will look at the Sysmon logs. The key thing 
 
 ![](images/result1.PNG)
 
-We next excuted the WMI Attack - Malicious Provider Method on the vicitm machine and attemtped to hunt it. The first thing we did was check the sysmon logs and we can see that there were multiple evenst relating to our attack. The first one we found was realting to the process create of powershell.exe. 
+We next excuted the WMI Attack - Malicious Provider Method on the victim machine and attempted to hunt it. The first thing we did was check the Ssysmon logs and we can see that there were multiple events relating to our attack. The first one we found was relating to the process create of powershell.exe. 
 
 ![](images/result2.PNG)
 
@@ -133,11 +133,15 @@ The second is a network connection to nmap.org to download n.exe.
 
 ![](images/result3.PNG)
 
-The last processs of interests was the creation of the process "n.exe" aka ncat.exe
+The last process of interests was the creation of the process "n.exe" aka ncat.exe
 
 ![](images/result4.PNG)
 
 Here we can see the base 64 encrypted payload being executed on the victim machine. 
+
+Additionally, network traffic can be parsed directly from a Wireshark capture to reveal RPC connections that power WMI to communicate over a network. While encrypted, this can show the mechanism used to deliver malicious payloads over WMI.
+
+![](images/result5.png)
 
 ## References:
 * [https://www.blackhat.com/docs/us-15/materials/us-15-Graeber-Abusing-Windows-Management-Instrumentation-WMI-To-Build-A-Persistent%20Asynchronous-And-Fileless-Backdoor-wp.pdf](https://www.blackhat.com/docs/us-15/materials/us-15-Graeber-Abusing-Windows-Management-Instrumentation-WMI-To-Build-A-Persistent%20Asynchronous-And-Fileless-Backdoor-wp.pdf)
