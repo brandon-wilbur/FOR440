@@ -119,23 +119,23 @@ The first one is using Event Viewer. Event viewer out of the box is very broad. 
 
 Let’s start out first test. Here we do a wmic call on a remote computer to execute the executable “FOR440Threathunting.exe”
 
-![](images/attack1.png)
+![](images/attack1.PNG)
 
 Now going to the victim machine, we will look at the Sysmon logs. The key thing to look here is for is the “Event ID: 1“. This event ID is associated with process creation. Here we look for WMI process creation. 
 
-![](images/result1.png)
+![](images/result1.PNG)
 
 We next excuted the WMI Attack - Malicious Provider Method on the vicitm machine and attemtped to hunt it. The first thing we did was check the sysmon logs and we can see that there were multiple evenst relating to our attack. The first one we found was realting to the process create of powershell.exe. 
 
-![](images/result1.png)
+![](images/result2.PNG)
 
 The second is a network connection to nmap.org to download n.exe. 
 
-![](images/result2.png)
+![](images/result3.PNG)
 
 The last processs of interests was the creation of the process "n.exe" aka ncat.exe
 
-![](images/result3.png)
+![](images/result4.PNG)
 
 Here we can see the base 64 encrypted payload being executed on the victim machine. 
 
